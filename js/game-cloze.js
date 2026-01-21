@@ -1,6 +1,7 @@
 
 (async function(){
   let totalMs = 0;
+  let totalScore = 0;
   const { Timer, SFX } = window.AppUtil; const DATA = await (await fetch('data/cloze.json')).json();
   const $ = s=>document.querySelector(s);
   const selCat=$('#clozeCat'), selSub=$('#clozeSub'), wrap=$('#clozeWrap'); const tOut=$('#clozeTime'), corrOut=$('#clozeCorrect'), sOut=$('#clozeScore'), hOut=$('#clozeHigh'); const timer=new Timer(tOut);
@@ -18,7 +19,13 @@ function loadHigh() {
   hOut.textContent = String(v);
 }
 fill(selCat, Object.keys(DATA)); function updateSub(){ fill(selSub, Object.keys(DATA[selCat.value]||{})); loadHigh(); } selCat.addEventListener('change', updateSub); selSub.addEventListener('change', loadHigh); updateSub();
-  let items=[], idx=0, correct=0; function start(){totalMs = 0; items = [ ...(((DATA[selCat.value]||{})[selSub.value])||[]) ].sort(()=>Math.random()-0.5); if(!items.length){ wrap.innerHTML='<p>No items.</p>'; return; } idx=0; correct=0; corrOut.textContent='0'; sOut.textContent='0'; timer.reset(); timer.start(); render(); SFX.click(); }
+  let items=[], idx=0, correct=0;
+  function start(){
+    totalMs = 0;
+    totalScore = 0;
+    items = [ ...(((DATA[selCat.value]||{})[selSub.value])||[]) ].sort(()=>Math.random()-0.5);
+    if(!items.length){ wrap.innerHTML='<p>No items.</p>'; return; }
+    idx=0; correct=0; corrOut.textContent='0'; sOut.textContent='0'; timer.reset(); timer.start(); render(); SFX.click(); }
   
   
 document.getElementById('clozePreview').addEventListener('click', () => {
@@ -30,15 +37,19 @@ document.getElementById('clozePreview').addEventListener('click', () => {
   AppUtil.showPreview(`Cloze Preview — ${selCat.value} / ${selSub.value}`, html);
 });
 
-  function scoreNow(){ const secs = Math.floor(totalMs / 1000); return (50*correct) + Math.max(0, 51 - secs); }
+  //function scoreNow(){ const secs = Math.floor(totalMs / 1000); return (50*correct) + Math.max(0, 51 - secs); }
+function scoreNow() { return totalScore; }
   
 function end(){
+  // Stop last question timer
+  timer.stop();
+  
   const score = scoreNow();
   sOut.textContent = String(score);
 
-  const best = Math.max(score, +(localStorage.getItem(bestKey())||0));
-  localStorage.setItem(bestKey(), String(best));
-  hOut.textContent = String(best);
+  //const best = Math.max(score, +(localStorage.getItem(bestKey())||0));
+  //localStorage.setItem(bestKey(), String(best));
+  //hOut.textContent = String(best);
 
   const totalTime = AppUtil.Timer.format(totalMs);
 
@@ -91,6 +102,15 @@ function render(){
     timer.stop();
     totalMs += timer.elapsedMs();
 
+    // Score calculation:
+    // 50 points + (up to 51 additional based on quickness)
+    let questionScore = 0;
+    const secs = Math.floor(elapsed / 1000);
+    if (ok) {
+      questionScore = 50 + (secs < 51 ? (51 - secs) : 0);
+      totalScore += questionScore;
+      }
+    
     // feedback
     const fb = document.getElementById('clozeFeedback');
     fb.textContent = ok ? '✅ Correct!' : `❌ ${it.a}`;
