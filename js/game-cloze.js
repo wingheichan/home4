@@ -100,7 +100,8 @@ function render(){
 
     // stop timer and accumulate
     timer.stop();
-    totalMs += timer.elapsedMs();
+    const elapsed = timer.elapsedMs();
+    totalMs += elapsed;
 
     // Score calculation:
     // 50 points + (up to 51 additional based on quickness)
