@@ -327,17 +327,4 @@ select {
   text-align: left;
 }
 
-.stats-table th {
-  background-color: #f2f2f2;
-  font-weight: bold;
-}
-
-.col-label {
-  width: 60%;                      /* clear column separation */
-}
-
-.col-stat {
-  width: 40%;
-}
-
 
