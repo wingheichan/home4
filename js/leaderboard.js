@@ -35,7 +35,7 @@
   // Notes on expected value shapes:
   //  - Quiz:       NUMBER (the best/highest score for cat/sub)
   //  - Memory:     OBJECT { ms: Number, moves: Number }
-  //  - Cloze:      OBJECT { right: Number, ms: Number }
+  //  - Cloze:      OBJECT { right: Number, ms: Number } -> Changed to a number
   //  - Sudoku:     OBJECT { ms: Number }
   //  - WordSearch: OBJECT { ms: Number }
   //
@@ -139,7 +139,7 @@
   // The status cell depends on the group and the shape of its value:
   //   - Quiz:       "Score: <number>"
   //   - Memory:     "Best time: m:ss — Moves: n"
-  //   - Cloze:      "Correct: n — Time: m:ss"
+  //   - Cloze:      "Correct: n — Time: m:ss", -> Changed to "Score: <number>"
   //   - Sudoku:     "Best time: m:ss"
   //   - Word Search:"Best time: m:ss"
   //
@@ -178,7 +178,7 @@
           // Cloze stores an OBJECT = { right, ms }
           // If you see "undefined" here, the game wrote a number instead of an object.
           //stat = `Correct: ${v.right} — Time: ${fmt(v.ms)}`;
-          stat = `Score: ${v}`; // v is number
+          stat = `Score: ${v}`; // v is number , changed to a number
         } else if (g === 'Sudoku') {
           // Sudoku stores an OBJECT = { ms }
           stat = `Best time: ${fmt(v.ms)}`;
