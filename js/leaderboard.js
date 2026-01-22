@@ -199,24 +199,15 @@
       // Emit the group header + table
       return `
         <h4>${g}</h4>
-    <table class="stats-table">
-    <thead>
-      <tr>
-        <th>Label</th>
-        <th>Stat</th>
-      </tr>
-    </thead>
-    <tbody>
-      ${data.map(item => `
-        <tr>
-          <td class="col-label">Category</td>
-          <td class="col-stat">Best</td>
-        </tr>
-        ${rows}
-      `).join("")}
-    </tbody>
-  </table>
-`;
+        <table class="stats-table">
+          <tr>
+            <td>Category</td>
+            <td>Best</td>
+          </tr>
+          ${rows}
+         </table>
+      `;
+    }).join('');
   }
 
   // =====================================================================
