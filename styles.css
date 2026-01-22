@@ -315,5 +315,29 @@ select {
 @media (max-width: 380px) {
   #panel-memory .memory-grid { max-width: 360px; gap: 8px; }
 }
+.stats-table {
+  border-collapse: collapse;      /* clean borders */
+  width: 100%;
+}
+
+.stats-table th,
+.stats-table td {
+  border: 1px solid #ccc;          /* table borders */
+  padding: 10px 20px;              /* SPACE between content */
+  text-align: left;
+}
+
+.stats-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.col-label {
+  width: 60%;                      /* clear column separation */
+}
+
+.col-stat {
+  width: 40%;
+}
 
 
