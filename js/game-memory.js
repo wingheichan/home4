@@ -124,7 +124,7 @@ fill(selCat, Object.keys(DATA)); function updateSub(){ fill(selSub, Object.keys(
     first = null;
     sOut.textContent = String(scoreNow());
 
-    if (matches === 10) finish();
+    if (matches === 8) finish();
   }, 550);
 }
 
