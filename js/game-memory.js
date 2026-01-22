@@ -53,7 +53,7 @@ fill(selCat, Object.keys(DATA)); function updateSub(){ fill(selSub, Object.keys(
     }
   }
 
-  function scoreNow(){ const secs=Math.floor(timer.elapsedMs()/1000); const correct=matches; return (50*correct) + Math.max(0, 51 - secs); }
+  function scoreNow(){ const secs=Math.floor(timer.elapsedMs()/1000); return Math.max(0, 1100 - (secs*15)); }
 
   function enableClicks(){
     tilesNodes.forEach(tile=> tile.addEventListener('click', onTile));
