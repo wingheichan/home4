@@ -138,7 +138,7 @@
   //
   // The status cell depends on the group and the shape of its value:
   //   - Quiz:       "Score: <number>"
-  //   - Memory:     "Best time: m:ss — Moves: n"
+  //   - Memory:     "Best time: m:ss — Moves: n" -> Changed to "Score: <number>"
   //   - Cloze:      "Correct: n — Time: m:ss", -> Changed to "Score: <number>"
   //   - Sudoku:     "Best time: m:ss"
   //   - Word Search:"Best time: m:ss"
@@ -173,7 +173,8 @@
           stat = `Score: ${v}`; // v is number
         } else if (g === 'Memory') {
           // Memory stores an OBJECT = { ms, moves }
-          stat = `Best time: ${fmt(v.ms)} — Moves: ${v.moves}`;
+          //stat = `Best time: ${fmt(v.ms)} — Moves: ${v.moves}`;
+          stat = `Score: ${v}`; // v is number , changed to a number
         } else if (g === 'Cloze') {
           // Cloze stores an OBJECT = { right, ms }
           // If you see "undefined" here, the game wrote a number instead of an object.
